@@ -1,22 +1,23 @@
 
 <%= form_for [@post], :html => {:class => "form-horizontal"} do |f| %>
   <div class="form-group">
-    <label class="col-sm-2 control-label"><%= f.label :title %></label>
+    <label class="col-sm-2 control-label"></label>
     <div class="col-sm-8">
-      <%= f.text_field :title, class: "form-control" %>
+      <%= f.text_field :title, placeholder: "title", class: "form-control" %>
     </div>
   </div>
 
   <div class="form-group">
-    <label class="col-sm-2 control-label"><%= f.label :text %></label>
+    <label class="col-sm-2 control-label"></label>
     <div class="col-sm-8">
-      <%= f.text_area :text, class: "form-control" %>
+      <%= f.text_area :text, placeholder: "post", class: "form-control", :cols => "10", :rows => "10" %>
     </div>
   </div>
 
   <div class="form-group">
-    <div class="col-sm-offset-4 col-sm-4">
-      <input style="margin: 10px" class="form-control" type="text" name="tag[tagtext]" placeholder="tag" />
+    <label class="col-sm-2 control-label"></label>
+    <div class="col-sm-4">
+      <input class="form-control" type="text" name="tagtext" placeholder="tag" />
     </div>
   </div>
 

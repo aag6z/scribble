@@ -1,14 +1,14 @@
 class PostsController < ApplicationController
-
-
+  skip_before_action :authenticate, only: [:index]
   def index
-    @posts = User.find(session[:user]["id"]).posts
+    @posts = Post.all
+    @tags = Tag.all
   end
 
   def show
+    @user = current_user
     @post = Post.find(params[:id])
     @comment = Comment.new
-
   end
 
   def new
@@ -16,25 +16,38 @@ class PostsController < ApplicationController
   end
 
   def create
-    @user = User.find(session[:user]["id"])
-    @post = @user.posts.create!(post_params)
-    @post.tags.create!(tag_params)
+    #@user = User.find(session[:user]["id"])
+    @post = current_user.posts.create!(post_params)
+    @post.tags.create!(tagtext: params[:tagtext])
 
     redirect_to posts_path
   end
 
   def edit
-    @post = Post.find(params[:id])
+    #@user = User.find(session[:user]["id"])
+    @post = current_user.posts.find(params[:id])
+    #if @user.id == @post.id
+
   end
 
   def update
-    @post = Post.find(params[:id])
+    @post = current_user.posts.find(params[:id])
     @post.update(post_params)
 
     redirect_to post_path(@post)
   end
 
   def destroy
+    @post = current_user.posts.find(params[:id])
+    @tags = @post.tags
+    @post.destroy
+    @tags.each do |tag|
+      if tag.posts == []
+        tag.destroy
+      end
+    end
+
+    redirect_to posts_path
   end
 
   private
@@ -42,9 +55,8 @@ class PostsController < ApplicationController
     params.require(:post).permit(:title, :text)
   end
 
-  def tag_params
-    params.require(:tag).permit(:tagtext)
+  def current_user
+    return User.find(session[:user]["id"])
   end
-
 
 end
