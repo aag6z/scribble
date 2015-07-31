@@ -1,0 +1,43 @@
+<% @posts.each do |post| %>
+<div class="row">
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= link_to "#{post.title}", post_path(post) %></h3>
+      </div>
+      <div class="panel-body">
+        <p><%= post.text %></p>
+        <h6><% (post.tags).each do |tag| %><span> <%= link_to "##{tag.tagtext}", tag_path(tag) %></span><% end %></h6>
+      </div>
+
+      <div class="well">
+        <p>Comments:</p>
+        <% (post.comments).each do |comment| %>
+        <div>
+          <span><%= comment.text %><span>
+          <span> - <%= comment.author %></span>
+          <div>---------------------------</div>
+        </div>
+        <% end %>
+      </div>
+
+    </div>
+
+
+
+
+
+    <!-- <% (post.tags).each do |tag| %> <p><%= tag.tagtext %></p><% end %>
+
+        <% (post.comments).each do |comment| %>
+          <p><%= comment.text %></p>
+          <p><%= comment.author %></p>
+        <% end %> -->
+
+
+
+  </div>
+  <div class="col-md-4"></div>
+</div>
+<% end %>

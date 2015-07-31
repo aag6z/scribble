@@ -1,0 +1,16 @@
+
+<%= form_tag("/sign_in", method: "post") do %>
+
+    <div class="col-md-8">
+      <input style="margin: 10px" class="form-control" type="text" name="username" placeholder="username" />
+    </div>
+
+    <div class="col-md-8">
+      <input style="margin: 10px" class="form-control" type="password" name="password" placeholder="password" />
+    </div>
+
+    <div class="col-md-8">
+      <input style="margin: 10px" class="btn btn-default btn-primary" type="submit" value="sign in" />
+    </div>
+    
+<% end %>
