@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   skip_before_action :authenticate, only: [:index]
+  
   def index
     @posts = Post.all
     @tags = Tag.all
@@ -18,7 +19,13 @@ class PostsController < ApplicationController
   def create
     #@user = User.find(session[:user]["id"])
     @post = current_user.posts.create!(post_params)
-    @post.tags.create!(tagtext: params[:tagtext])
+    @tag = Tag.find_by(tagtext: params[:tagtext])
+    if @tag == nil
+      @post.tags.create!(tagtext: params[:tagtext])
+    else
+      #this literally took me an hour to find...
+      @post.tags << @tag
+    end
 
     redirect_to posts_path
   end

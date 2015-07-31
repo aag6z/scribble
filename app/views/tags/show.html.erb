@@ -1,8 +1,9 @@
+<% @counter = 0 %>
 <% @posts.each do |post| %>
   <div class="row">
     <div class="col-md-4"></div>
     <div class="col-md-4">
-      <h4 style="margin-bottom: 15px;">#<%= @tag.tagtext %></h4>
+    <% if @counter == 0 %>  <h4 style="margin-bottom: 15px;">#<%= @tag.tagtext %></h4> <% @counter = 1 %> <% end %>
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title"><%= link_to "#{post.title}", post_path(post) %></h3>
@@ -24,6 +25,6 @@
 
       </div>
     </div>
-  <% end %>
   <div class="col-md-4"></div>
 </div>
+<% end %>
