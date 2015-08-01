@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   skip_before_action :authenticate, only: [:index]
-  
+
   def index
     @posts = Post.all
     @tags = Tag.all
@@ -46,13 +46,7 @@ class PostsController < ApplicationController
 
   def destroy
     @post = current_user.posts.find(params[:id])
-    @tags = @post.tags
     @post.destroy
-    @tags.each do |tag|
-      if tag.posts == []
-        tag.destroy
-      end
-    end
 
     redirect_to posts_path
   end
