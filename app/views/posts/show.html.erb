@@ -11,7 +11,7 @@
       </div>
       <div class="panel-body">
         <p><%= @post.text %></p>
-        <p id="byline"> by <%= @post.user.username %></p>
+        <div id="byline"><%= @post.user.username %></div><div id="time"><%= @post.date %> </div> <div id="time"> <%= @post.time %></div>
         <h6><% (@post.tags).each do |tag| %><span> <%= link_to "##{tag.tagtext}", tag_path(tag) %></span><% end %></h6>
       </div>
 
@@ -19,7 +19,7 @@
         <p>comments</p>
         <% (@post.comments).each do |comment| %>
         <div id="comment">
-          <%= comment.text %> <div id="byline"><%=comment.user.username %></div>
+          <%= comment.text %> <div id="byline"><%=comment.user.username %></div><p id="time"><%= comment.date %> </p> <p id="time"> <%= comment.time %></p>
         </div>
         <% end %>
       </div>

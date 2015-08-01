@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   skip_before_action :authenticate, only: [:index]
 
   def index
-    @posts = Post.all
+    @posts = Post.all.order('created_at DESC')
     @tags = Tag.all
   end
 
@@ -19,12 +19,14 @@ class PostsController < ApplicationController
   def create
     #@user = User.find(session[:user]["id"])
     @post = current_user.posts.create!(post_params)
-    @tag = Tag.find_by(tagtext: params[:tagtext])
-    if @tag == nil
-      @post.tags.create!(tagtext: params[:tagtext])
-    else
-      #this literally took me an hour to find...
-      @post.tags << @tag
+    if params[:tagtext] != ""
+      @tag = Tag.find_by(tagtext: params[:tagtext])
+      if @tag == nil
+        @post.tags.create!(tagtext: params[:tagtext])
+      else
+        #this literally took me an hour to find...
+        @post.tags << @tag
+      end
     end
 
     redirect_to posts_path

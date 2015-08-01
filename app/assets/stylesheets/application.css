@@ -27,6 +27,14 @@
   font-size: 8pt;
 }
 
+#time {
+  text-align: right;
+  font-style: italic;
+  font-size: 6pt;
+  margin: 1px;
+
+}
+
 #glyph{
   float: right;
   margin-right: 7px;
