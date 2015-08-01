@@ -20,12 +20,15 @@ class PostsController < ApplicationController
     #@user = User.find(session[:user]["id"])
     @post = current_user.posts.create!(post_params)
     if params[:tagtext] != ""
-      @tag = Tag.find_by(tagtext: params[:tagtext])
-      if @tag == nil
-        @post.tags.create!(tagtext: params[:tagtext])
-      else
-        #this literally took me an hour to find...
-        @post.tags << @tag
+      @tag_arr = (params[:tagtext]).split
+      @tag_arr.each do |tag|
+        @tag = Tag.find_by(tagtext: tag)
+        if @tag == nil
+          @post.tags.create!(tagtext: tag)
+        else
+          #this literally took me an hour to find...
+          @post.tags << @tag
+        end
       end
     end
 
