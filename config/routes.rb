@@ -2,10 +2,11 @@ Rails.application.routes.draw do
   root to: 'posts#index'
 
   resources :posts do
-    resources :comments
+    resources :comments, :only => :create
   end
 
-  resources :tags
+  resources :tags, :only => :show
+  resources :users, :only => :show
 
   get '/sign_in', to: 'users#sign_in'
   post '/sign_in', to: 'users#sign_in!'

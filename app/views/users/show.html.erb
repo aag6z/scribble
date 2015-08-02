@@ -1,0 +1,31 @@
+<div id="alert" class="alert alert-info" role="alert"><%= flash[:notice]%></div>
+<% @counter = 0 %>
+<% @posts.each do |post| %>
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-5">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= link_to "#{post.title}", post_path(post) %></h3>
+      </div>
+      <div class="panel-body">
+        <p><%= post.text %></p>
+        <div id="byline"><%= post.user.username %></div><div id="time"><%= post.date %> </div> <div id="time"> <%= post.time %></div>
+        <h6><% (post.tags).each do |tag| %><span> <%= link_to "##{tag.tagtext}", tag_path(tag) %></span><% end %></h6>
+      </div>
+
+      <div class="well">
+        <p>comments</p>
+        <% (post.comments).each do |comment| %>
+        <div id="comment">
+          <%= comment.text %> <div id="byline"><%=comment.user.username %></div><p id="time"><%= comment.date %> </p> <p id="time"> <%= comment.time %></p>
+        </div>
+        <% end %>
+        <%= link_to "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span>".html_safe, post_path(post) %>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+  </div>
+</div>
+<% end %>
